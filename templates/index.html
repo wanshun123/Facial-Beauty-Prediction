@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Facial Beauty Prediction</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href= "{{ url_for('static',filename='app.css') }}">
+
+  <style>
+  </style>
+  
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  
+</head>
+
+<body>
+
+    <div id="maintable">
+    
+    <h2>How Attractive Are You In The Eyes Of AI?</h2>
+    
+    <hr>
+
+    <div class="row">
+            <div class="col-sm-5" id = "image-placeholder">
+            <img src="{{ displayedimage|safe }}">
+            </div>
+            
+            <div class="col-sm-7">
+            
+            <form action = "/uploaded" method = "POST"
+            enctype = "multipart/form-data">
+            <input type = "file" name = "file" class="form-control-file"/>
+            <input type = "submit" class="btn btn-info" value="Upload Image"/>
+            </form>
+                        
+            <br>
+            
+            <div id = "userinfo">
+                                    
+            <p>Upload a selfie to see what the machine learning model thinks of you! This model was trained to evaluate beauty by analyzing thousands of profile photos, and will examine every individual pixel of the image you upload to evaluate its overall commonality with best and worst rated selfies. Please note this was built for <b>entertainment and research purposes only</b>, so do not take the result too seriously.</p>
+            
+            <p>Get in touch: contact (at) dataanalysis (dot) world</p>
+            
+            </div>
+                
+            </div>
+            
+    </div>
+    
+    <br>
+    
+    <h3>Acknowledgements and Source Code</h3>
+    
+    <br>
+    
+    <p>The machine learning model used here was built with the assistance of the SCUT-FBP5500 dataset: see the paper at <a href="https://arxiv.org/abs/1801.06345">https://arxiv.org/abs/1801.06345</a>. T
+    
+    </div>
+
+</body>
+
+<script type="text/javascript">
+$('form').submit(function(e){
+    e.preventDefault();
+    
+    let imgPlaceholder = document.getElementById('image-placeholder')
+    
+    let userinfo = document.getElementById('userinfo')
+        userinfo.innerHTML = '<loadingtext><img src="/static/spinner.gif" width="200px" height="200px" class ="center-block"><p><i>Processing image...</i></p></loadingtext>'
+        
+    $.ajax({
+        url: $(this).attr('action'),
+        type: 'POST',
+        data: new FormData($('form')[0]),
+        cache: false,
+        contentType: false,
+        processData: false
+
+    }).done(function(res){
+                
+        if (res['success'] == true) {
+                    
+            face_location = res['face_image']
+            original_image = res['original_image']
+                    
+            imgPlaceholder.innerHTML = '<img src="/static/qm.jpg">'
+                    
+            userinfo.innerHTML = '<loadingtext><img src="/static/spinner.gif" width="200px" height="200px" class ="center-block"><p><i>Compiling analysis...</i></p><p><b>' + res['msg'] + '</b></p></loadingtext>'
+            
+            $.ajax({
+            url: "/analyze",
+            type: 'POST',
+            data: original_image,
+            cache: false,
+            contentType: false,
+            processData: false 
+        }).done(function(res){
+            imgPlaceholder.innerHTML = '<img src="' + face_location + '">'
+            userinfo.innerHTML = res
+        })
+            
+        } else {
+                
+            userinfo.innerHTML = '<b>' + res['msg'] + '</b>'
+        
+        }
+        
+    })
+})
+</script>
+
+</html>

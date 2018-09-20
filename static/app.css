@@ -1,0 +1,63 @@
+body {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: block;
+  width: 950px;
+  font-family: "Open Sans", sans-serif;
+  background: white;
+  border-radius: 50px;
+  border: 1px solid rgba(156, 162, 170, 0.28);
+}
+
+br {
+  display: block;
+  margin: 0px 0;
+  line-height:0em;
+}
+
+html {
+  background-image: url("http://dataanalysis.world/background.png");
+}
+
+label {
+  display: inline-block;
+  width: 100px;
+}
+
+input {
+  width: 500px;
+  padding: 5px;
+  font-size: 16px;
+}
+
+button {
+  font-size: 16px;
+  padding: 5px;
+}
+
+h2 {
+  color: #AAA;
+  font-size: 32px;
+  vertical-align: middle;
+  display: block;
+  text-align: center;
+}
+
+h3 {
+  vertical-align: middle;
+  display: block;
+  text-align: center;
+  color: #AAA;
+  font-size: 24px;
+}
+
+loadingtext {
+  text-align: center;
+  font-size: 14px;
+}
