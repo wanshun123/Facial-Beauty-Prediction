@@ -12,7 +12,7 @@ import os
 import cv2
 import sys
 import glob
-
+import time
 import sys
 
 # initialize our Flask application and the Keras model
