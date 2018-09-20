@@ -36,7 +36,7 @@ model.compile(loss='mean_squared_error', optimizer=Adam())
 model.fit(batch_size = 32, x = images_train, y = labels_train, epochs = 30)
 
 model.layers[0].trainable = True
-model.compile(loss='mean_squared_error', optimizer=Adam(lr = 1e-5))
+model.compile(loss='mean_squared_error', optimizer=Adam())
 model.fit(batch_size = 32, x = images_train, y = labels_train, epochs = 30)
 
 model.save('model.h5')
