@@ -5,5 +5,5 @@ Simple website interface built using Flask that allows users to upload selfies t
 To run yourself:
 
 ```
-python keras_server.py
+python flask_server.py
 ```
