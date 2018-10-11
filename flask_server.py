@@ -137,9 +137,6 @@ def upload_file():
                                         
 if __name__ == "__main__":
 
-    # ec2 machine gives maximum recursion depth exceeded error without this - fine on local machine
-    sys.setrecursionlimit(10000)
-
     print("Loading Keras model and Flask starting server...")
                 
     model = load_model('my_model.h5')
@@ -150,12 +147,5 @@ if __name__ == "__main__":
             x = f.read().splitlines()
             x = [float(i) for i in x]
             x = [x * 2 for x in x]
-        
-    app.secret_key = 'super secret key'
-    app.config['SESSION_TYPE'] = 'filesystem'
 
-    # if running on ec2 (port 80 gives permission error)
-    app.run(host = "0.0.0.0", port = 5000, debug = False, threaded = False)
-    
-    # if running on local machine
-    # app.run(host = "0.0.0.0", port = 80, debug = False, threaded = False)
+    app.run(host = "0.0.0.0", port = 80, debug = False, threaded = False)
